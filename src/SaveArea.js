@@ -38,8 +38,8 @@ var SaveArea = React.createClass({
       	return (
       		<div className='savedAreaContainer' key={i} >
          		<p>{ area.name }</p>
+         		<span className="renameArea" onClick={ this.renameSavedArea.bind(this, i)}> Rename</span>
          		<span className="removeArea" onClick={ this.removeSavedArea.bind(this, i) }> Remove</span>
-         		<span className="loadArea" onClick={ this.renameSavedArea.bind(this, i)}> Rename</span>
          	</div>
       	);
     });
