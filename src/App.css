@@ -1,0 +1,64 @@
+#areaPanel {
+  box-sizing: border-box;
+  width: calc(100% - 12em);
+  height: 100vh;
+  float: left;
+  border-right: 1px solid black;
+}
+
+#savedItemsPanel {
+  box-sizing: border-box;
+  width: 12em;
+  height: 100vh;
+  float: right;
+}
+
+#area {
+  padding: 10%;
+}
+
+.newRectangle {
+  width: 4em;
+  height: 4em;
+  background: blue;
+  overflow: auto;
+  resize: both;
+  cursor: nwse-resize;
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 5px;
+}
+
+.innerRectangleHeight {
+  position: absolute;
+  height: calc(100% - 10px);
+  width: 100%;
+  cursor: move;
+}
+
+.innerRectangleWidth {
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 10px);
+  cursor: move;
+}
+
+.changeColor, .removeRectangle {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  display: none;
+}
+
+.changeColor {
+  left: 0;
+}
+
+.removeRectangle {
+  right: 0;
+}
+
+.newRectangle:hover .changeColor,
+.newRectangle:hover .removeRectangle{
+  display: block;
+}
