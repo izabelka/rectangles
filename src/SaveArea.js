@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 import AreaLayout from './AreaLayout';
 
 var SaveArea = React.createClass({
@@ -25,26 +24,30 @@ var SaveArea = React.createClass({
      	});
   	},
 
-  	loadSavedArea(index) {
-    	console.log(this.state);
+  	renameSavedArea(index) {
+  		let newName = window.prompt('Enter new area name');
+  		this.state.areaList[index].name = newName;
+  		this.setState({
+    		areaList:  this.state.areaList
+    	});
 
   	},
 
     render() {
     	const savedAreas = this.state.areaList.map((area, i) => {
       	return (
-      		<div key={i} >
+      		<div className='savedAreaContainer' key={i} >
          		<p>{ area.name }</p>
          		<span className="removeArea" onClick={ this.removeSavedArea.bind(this, i) }> Remove</span>
-         		<span className="loadArea" onClick={ this.loadSavedArea.bind(this, i)}> Load</span>
+         		<span className="loadArea" onClick={ this.renameSavedArea.bind(this, i)}> Rename</span>
          	</div>
       	);
     });
 
   		return (
   			<div id='savedItemsPanel'>
-         		<button onClick={this.saveArea}>Save area</button>
-    			<div>Saved areas: { savedAreas }</div>
+         		<button id='saveArea' onClick={this.saveArea}>Save area</button>
+    			<div id='savedAreas'> Saved areas: { savedAreas }</div>
           	</div>
 
 

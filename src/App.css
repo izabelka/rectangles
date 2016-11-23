@@ -1,13 +1,19 @@
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
 #areaPanel {
   box-sizing: border-box;
   width: calc(100% - 12em);
   height: 100vh;
   float: left;
-  border-right: 1px solid black;
+  background: white;
 }
 
 #savedItemsPanel {
   box-sizing: border-box;
+  background: hsl(289, 100%, 75%);
   width: 12em;
   height: 100vh;
   float: right;
@@ -15,6 +21,27 @@
 
 #area {
   padding: 10%;
+}
+
+#addRectangle,
+#clearArea,
+#saveArea {
+  background: white;
+  font-size: 0.9em;
+  border-radius: 2px;
+  width: 8em;
+  height: 3.5em;
+  margin: 1em 0 0 1em;
+  border: 1px solid hsl(245, 100%, 50%);
+  color: hsl(245, 100%, 50%);
+}
+
+#addRectangle:hover,
+#clearArea:hover,
+#saveArea:hover {
+  color: white;
+  background: hsl(245, 100%, 50%);
+  cursor: pointer;
 }
 
 .newRectangle {
@@ -43,22 +70,47 @@
   cursor: move;
 }
 
-.changeColor, .removeRectangle {
+.changeColor {
   position: absolute;
   top: 0;
+  right: 0;
+  margin: 0.5em 0.5em 0 0;
+  background: white;
+  font-size: 0.7em;
+  border-radius: 2px;
+  border: 1px solid hsl(245, 100%, 50%);
+  color: hsl(245, 100%, 50%);
   cursor: pointer;
   display: none;
 }
 
-.changeColor {
-  left: 0;
-}
-
-.removeRectangle {
-  right: 0;
-}
-
-.newRectangle:hover .changeColor,
-.newRectangle:hover .removeRectangle{
+.newRectangle:hover .changeColor{
   display: block;
 }
+
+#savedAreas {
+  padding: 2em 1em 0 1em;
+}
+
+.savedAreaContainer {
+  padding-top: 1em;
+  display: flex;
+  align-items: center;
+}
+.savedAreaContainer p {
+  font-weight: 700;
+}
+
+.savedAreaContainer span {
+  display: none;
+  font-size: 0.8em;
+  margin-left: 0.5em;
+}
+
+.savedAreaContainer:hover span{
+  display: block;
+  cursor: pointer;
+}
+
+
+

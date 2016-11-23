@@ -27,8 +27,8 @@ var Area = React.createClass({
     render() {
         return (
                 <div id='areaPanel'>
-                    <button onClick={this.addRectangle}>Add rectangle</button>
-                    <button onClick={this.clearArea}>Clear area</button>
+                    <button id='addRectangle' onClick={this.addRectangle}>Add rectangle</button>
+                    <button id='clearArea' onClick={this.clearArea}>Clear area</button>
                     <AreaLayout layout={this.state.rectangleList}/>
                 </div>
         );
