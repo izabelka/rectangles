@@ -25,10 +25,11 @@ var SaveArea = React.createClass({
   	},
 
   	renameSavedArea(index) {
-  		let newName = window.prompt('Enter new area name');
-  		this.state.areaList[index].name = newName;
+  		let newName = window.prompt('Enter new area name'),
+          areaList = this.state.areaList.slice(0); // shallow array copy
+  		areaList[index].name = newName;
   		this.setState({
-    		areaList:  this.state.areaList
+    		areaList: areaList
     	});
 
   	},
