@@ -1,53 +1,48 @@
 var React = require('react');
-import AreaLayout from './AreaLayout';
 
 var SaveArea = React.createClass({
     getInitialState() {
-        return {
-        	areaList: [
-    		]
-        };
+      return { layoutNames: []};
     },
 
     saveArea() {
-   		const items = <AreaLayout/>;   
-  		const name = window.prompt('Enter new area name');
-    
-  		this.setState({
-    		areaList: this.state.areaList.concat({ items, name })
-    	});
+      const name = window.prompt('Enter new area name');
+      this.props.dispatcher.saveArea.call(this.props.dispatcher, this, name);
     },
 
-  	removeSavedArea(index) {
-    	this.setState({ 
-    		areaList: this.state.areaList.filter((e, i) => i !== index)
-     	});
-  	},
-
   	renameSavedArea(index) {
-  		let newName = window.prompt('Enter new area name'),
-          areaList = this.state.areaList.slice(0); // shallow array copy
-  		areaList[index].name = newName;
-  		this.setState({
-    		areaList: areaList
-    	});
-
+  		const name = window.prompt('Enter new area name');
+      this.props.dispatcher.renameArea
+          .call(this.props.dispatcher, this, index, name);
   	},
 
     render() {
-    	const savedAreas = this.state.areaList.map((area, i) => {
+    	const savedAreas = this.state.layoutNames.map((name, i) => {
       	return (
       		<div className='savedAreaContainer' key={i} >
-         		<p>{ area.name }</p>
-         		<span className="renameArea" onClick={ this.renameSavedArea.bind(this, i)}> Rename</span>
-         		<span className="removeArea" onClick={ this.removeSavedArea.bind(this, i) }> Remove</span>
+         		<p>{ name }</p>
+         		<span className="renameArea"
+                  onClick={ this.renameSavedArea.bind(this, i)}>
+              Rename
+            </span>
+         		<span className="removeArea"
+                  onClick={ this.props.dispatcher.removeArea
+                    .bind(this.props.dispatcher, this, i) }>
+              Remove
+            </span>
+            <span className="setLayoutToSaved"
+                  onClick={ this.props.dispatcher.setLayoutToSaved
+                    .bind(this.props.dispatcher, this, i) }>
+              Set
+            </span>
          	</div>
       	);
     });
 
   		return (
   			<div id='savedItemsPanel'>
-         		<button id='saveArea' onClick={this.saveArea}>Save area</button>
+         		<button id='saveArea'
+             onClick={this.saveArea}>Save area</button>
     			<div id='savedAreas'> Saved areas: { savedAreas }</div>
           	</div>
 

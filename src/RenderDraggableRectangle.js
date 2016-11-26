@@ -6,13 +6,10 @@ var Draggable = React.createClass({
     getInitialState() {
         return {
             relX: 0,
-            relY: 0,
-            color: this.randomValue(360)
+            relY: 0
         };
     },
-    randomValue(max) {
-        return Math.floor((Math.random() * max) + 1)
-    }, 
+
     onMouseDown(e) {
         if (e.button !== 0) return;
         const ref = ReactDOM.findDOMNode(this.refs.handle);
@@ -38,15 +35,10 @@ var Draggable = React.createClass({
         });
         e.preventDefault();
     },
-    changeColor() {
-        this.setState({
-            color: this.randomValue(360)
-        });
-    },
 
     render() {
-        let hslColor = 'hsl(' + this.state.color + ', 100%, 50%)';
-        let hslBorder = '1px solid hsl(' + this.state.color + ', 100%, 40%)';
+        let hslColor = 'hsl(' + this.props.color + ', 100%, 50%)';
+        let hslBorder = '1px solid hsl(' + this.props.color + ', 100%, 40%)';
         return(
             <div className="newRectangle" ref="handle" 
                 style={{
@@ -58,27 +50,31 @@ var Draggable = React.createClass({
                     }}>
                 <div className="innerRectangleWidth" onMouseDown={this.onMouseDown}></div>
                 <div className="innerRectangleHeight" onMouseDown={this.onMouseDown}></div>
-                <button className="changeColor" onClick={this.changeColor}>Color</button>
+                <button className="changeColor"
+                        onClick={this.props.dispatcher.changeRectangleColor
+                                     .bind(this.props.dispatcher,
+                                           this.props.listIndex)}>
+                  Color
+                </button>
             </div>
         )}
 })
 
 var RenderDraggableRectangle = React.createClass({
-    getInitialState() {
-        return {
-            x: 150, 
-            y: 150
-        };
-    },
-    render() {
-        let {x, y} = this.state;
-        return( 
-            <Draggable x={x} y={y} onMove={this.move}>
-            </Draggable>
+  render() {    
+    return(
+        <Draggable
+           dispatcher={this.props.dispatcher}
+           listIndex={this.props.listIndex}
+           x={this.props.x} y={this.props.y} color={this.props.c}
+           onMove={this.move}>
+        </Draggable>
     )},
-    move(e) {
-        this.setState(e);
-    }
+  move(e) {
+    this.props.dispatcher.moveRectangle.call(this.props.dispatcher,
+                                             this.props.listIndex,
+                                             e.x, e.y);
+  }
 });
 
 
