@@ -2,35 +2,40 @@ var React = require('react');
 import './reset.css';
 import './App.css';
 import RenderDraggableRectangle from './RenderDraggableRectangle';
-import AreaLayout from './AreaLayout';
 
 var Area = React.createClass({
+    componentWillMount() {
+      this.props.dispatcher.areaComponent = this;
+    },
+
     getInitialState() {
-        return {
-            rectangleList: [],
-        };
-    },
-
-    addRectangle() {
-        let rectangleList = this.state.rectangleList;
-        this.setState({
-            rectangleList: rectangleList.concat(<RenderDraggableRectangle key={rectangleList.length} />)
-        });
-    },
-
-    clearArea() {
-        this.setState({
-            rectangleList: []
-        })
+      return { rectangleList: [] };
     },
 
     render() {
+      var rectangles = this.state.rectangleList.map((info,i)=>{
         return (
-                <div id='areaPanel'>
-                    <button id='addRectangle' onClick={this.addRectangle}>Add rectangle</button>
-                    <button id='clearArea' onClick={this.clearArea}>Clear area</button>
-                    <AreaLayout layout={this.state.rectangleList}/>
-                </div>
+          <RenderDraggableRectangle
+             dispatcher={this.props.dispatcher}
+             key={i} listIndex={i} x={info.x} y={info.y} c={info.c} />
+        );
+      });
+      return (
+        <div id='areaPanel'>
+          <button id='addRectangle'
+                  onClick={this.props.dispatcher.addRectangle
+                             .bind(this.props.dispatcher)}>
+            Add rectangle
+          </button>
+          <button id='clearArea'
+                  onClick={this.props.dispatcher.clearArea
+                             .bind(this.props.dispatcher)}>
+            Clear area
+          </button>
+          <div id='area'>
+            { rectangles }
+          </div>
+        </div>
         );
     }
 });
