@@ -24,3 +24,15 @@ This was one of my first React Apps, I manage to implement almost all of request
 
 
 [Demo App](https://izabelka.github.io/rectangles/)
+
+
+
+## How to set up the app:
+1. Clone the repository
+2. Download [Node.js](https://nodejs.org/en/download/)
+3. On your console run: `npm install`
+4. Install react: `npm install --save react react-dom`
+5. Start server: `npm start`
+
+
+If it does not work you should remove `node_modules` catalog and repeat process from 3rd step.
